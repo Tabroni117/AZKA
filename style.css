@@ -1,0 +1,383 @@
+/* style.css */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: #f0f2f5; /* Warna latar belakang umum */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Memastikan body mengisi seluruh tinggi viewport */
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky; /* Tetap di atas saat discroll */
+    top: 0;
+    z-index: 1000;
+    flex-wrap: wrap; /* Izinkan wrap pada item jika layar kecil */
+}
+
+.nav-logo {
+    font-weight: 700;
+    font-size: 24px;
+    color: #00B14F; /* Warna hijau khas Grab */
+    margin-right: 20px; /* Jarak agar tidak terlalu rapat */
+}
+
+.nav-search {
+    flex-grow: 1; /* Mengisi ruang yang tersedia */
+    margin-right: 20px; /* Jarak agar tidak terlalu rapat */
+}
+
+.nav-search input {
+    width: 100%; /* Penting untuk mobile */
+    max-width: 300px; /* Batasi lebar maksimum di desktop */
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+    background-color: #f9f9f9;
+}
+
+.nav-cart {
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+    color: #333;
+}
+
+.nav-cart #cart-count {
+    background-color: #FF5722; /* Warna oranye/merah untuk notifikasi */
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 3px 7px;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    flex: 1; /* Mengisi sisa ruang vertikal */
+    padding: 20px;
+    gap: 20px; /* Jarak antar kolom */
+}
+
+/* Sidebar (Restaurant List) */
+.sidebar {
+    flex: 0 0 280px; /* Lebar tetap untuk sidebar di desktop */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 20px;
+    overflow-y: auto; /* Bisa discroll jika banyak restoran */
+}
+
+.sidebar h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.restaurant-card {
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.restaurant-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    border-color: #00B14F;
+}
+
+.restaurant-card h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #00B14F;
+    font-size: 18px;
+}
+
+.restaurant-card p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 0;
+}
+
+/* Main Content (Menu Display) */
+.main-content {
+    flex: 3; /* Mengambil sisa ruang di tengah */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.main-content h2 {
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.main-content .description-text {
+    font-style: italic;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: background-color 0.2s ease;
+    flex-wrap: wrap; /* Izinkan wrap pada item menu jika layar kecil */
+}
+
+.menu-item:hover {
+    background-color: #f0f8ff;
+}
+
+.item-info {
+    flex-grow: 1; /* Mengisi ruang yang tersedia */
+}
+
+.item-info h4 {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.item-info p {
+    font-size: 12px;
+    color: #777;
+    margin: 5px 0;
+}
+
+.item-info .price {
+    font-weight: 700;
+    color: #00B14F;
+    font-size: 15px;
+}
+
+.add-to-cart-btn {
+    background-color: #00B14F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    margin-left: 10px; /* Jarak dari info item */
+}
+
+.add-to-cart-btn:hover {
+    background-color: #009A44;
+}
+
+/* Cart Summary */
+.cart-summary {
+    flex: 0 0 280px; /* Lebar tetap untuk keranjang di desktop */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-summary h3 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+#cart-items-list {
+    flex-grow: 1; /* Agar bisa discroll jika isinya banyak */
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dotted #eee;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-info span {
+    display: block;
+    font-size: 14px;
+    color: #444;
+}
+
+.cart-item-info .qty {
+    font-size: 12px;
+    color: #888;
+}
+
+.cart-item-price {
+    font-weight: 500;
+    color: #333;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.btn-checkout {
+    background-color: #FF5722; /* Warna oranye/merah khas Grab */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-checkout:hover {
+    background-color: #E64A19;
+}
+
+
+/* --- MEDIA QUERIES UNTUK TAMPILAN MOBILE --- */
+
+/* Gaya untuk layar dengan lebar maksimum 768px (umumnya tablet potret dan ponsel) */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Tumpuk item secara vertikal di navbar */
+        align-items: flex-start; /* Sejajarkan item ke kiri */
+        padding: 10px 15px;
+    }
+
+    .nav-logo {
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    .nav-search {
+        width: 100%; /* Ambil lebar penuh */
+        margin-bottom: 10px;
+        margin-right: 0; /* Hapus margin kanan */
+    }
+
+    .nav-search input {
+        width: 100%;
+        max-width: none; /* Hapus batasan max-width */
+    }
+
+    .nav-cart {
+        align-self: flex-end; /* Posisikan keranjang di kanan bawah navbar */
+        margin-top: -35px; /* Sesuaikan posisi agar tidak menumpuk dengan search bar */
+    }
+
+    .container {
+        flex-direction: column; /* Ubah layout utama menjadi tumpukan vertikal */
+        padding: 10px;
+        gap: 15px; /* Jarak antar bagian */
+    }
+
+    /* Semua bagian utama (sidebar, main-content, cart-summary) akan mengambil lebar penuh */
+    .sidebar, .main-content, .cart-summary {
+        flex: auto; /* Biarkan mengambil lebar penuh */
+        width: auto; /* Pastikan mengambil lebar penuh */
+        margin-bottom: 0; /* Hapus margin bawah default */
+        padding: 15px;
+    }
+
+    .sidebar h2, .main-content h2, .cart-summary h3 {
+        font-size: 18px; /* Ukuran font lebih kecil */
+    }
+
+    .restaurant-card {
+        padding: 12px;
+        margin-bottom: 8px;
+    }
+
+    .restaurant-card h3 {
+        font-size: 16px;
+    }
+
+    .restaurant-card p {
+        font-size: 12px;
+    }
+
+    .menu-item {
+        flex-direction: column; /* Tumpuk info item dan tombol tambah */
+        align-items: flex-start;
+        padding: 12px;
+    }
+
+    .item-info {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .add-to-cart-btn {
+        width: 100%; /* Tombol ambil lebar penuh */
+        margin-left: 0;
+    }
+
+    .cart-item-info span {
+        font-size: 13px;
+    }
+
+    .cart-item-info .qty {
+        font-size: 11px;
+    }
+
+    .btn-checkout {
+        padding: 10px 15px;
+        font-size: 15px;
+    }
+}
+
+/* Media Query tambahan untuk layar sangat kecil (misal ponsel dengan lebar < 480px) */
+@media (max-width: 480px) {
+    .nav-cart {
+        margin-top: -30px;
+    }
+    .container {
+        padding: 5px;
+    }
+    .sidebar, .main-content, .cart-summary {
+        padding: 10px;
+    }
+}
