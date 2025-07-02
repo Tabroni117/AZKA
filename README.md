@@ -1,2 +1,0 @@
-# AZKA
-RUJAK
