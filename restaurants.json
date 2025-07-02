@@ -1,0 +1,41 @@
+{
+    "KFC": {
+        "description": "Ayam goreng renyah dan lezat!",
+        "menu": {
+            "Paket Kombo A": {"price": 35000, "description": "1 Ayam + Nasi + Minum"},
+            "Paket Kombo B": {"price": 45000, "description": "2 Ayam + Nasi + Minum"},
+            "Zinger Burger": {"price": 30000, "description": "Burger ayam pedas"},
+            "Kentang Goreng (Large)": {"price": 20000, "description": "Kentang goreng renyah"},
+            "Crispy Strips": {"price": 28000, "description": "Potongan ayam tanpa tulang"}
+        }
+    },
+    "Pizza Hut": {
+        "description": "Pizza panas dan keju melimpah!",
+        "menu": {
+            "Meat Lovers (Reguler)": {"price": 80000, "description": "Pizza dengan berbagai daging"},
+            "Super Supreme (Reguler)": {"price": 75000, "description": "Pizza dengan topping lengkap"},
+            "Garlic Bread": {"price": 25000, "description": "Roti panggang bawang putih"},
+            "Spaghetti Bolognese": {"price": 40000, "description": "Spaghetti dengan saus daging"},
+            "Tuna Melt (Reguler)": {"price": 70000, "description": "Pizza dengan topping tuna"}
+        }
+    },
+    "Warung Padang Sederhana": {
+        "description": "Masakan Padang autentik dan bikin nagih!",
+        "menu": {
+            "Nasi Rendang": {"price": 25000, "description": "Nasi dengan rendang sapi"},
+            "Nasi Ayam Bakar": {"price": 20000, "description": "Nasi dengan ayam bakar"},
+            "Telur Dadar Padang": {"price": 10000, "description": "Telur dadar tebal khas Padang"},
+            "Sayur Nangka": {"price": 8000, "description": "Sayur nangka kuah santan"},
+            "Nasi Ayam Goreng": {"price": 22000, "description": "Nasi dengan ayam goreng rempah"}
+        }
+    },
+    "Starbucks": {
+        "description": "Kopi dan minuman favorit Anda!",
+        "menu": {
+            "Caffe Latte (Grande)": {"price": 49000, "description": "Kopi susu klasik"},
+            "Caramel Macchiato (Grande)": {"price": 55000, "description": "Espresso dengan saus karamel"},
+            "Green Tea Latte (Grande)": {"price": 52000, "description": "Minuman teh hijau"},
+            "Croissant Butter": {"price": 28000, "description": "Roti croissant"}
+        }
+    }
+}
