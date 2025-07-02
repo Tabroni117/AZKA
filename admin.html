@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Update Menu</title>
+    <link rel="stylesheet" href="style.css"> <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Specific styles for admin page, or override main styles */
+        body {
+            background-color: #f8f9fa;
+        }
+        .admin-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .admin-header h1 {
+            font-size: 28px;
+            color: #00B14F;
+        }
+        .restaurant-admin-section {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background-color: #fdfdfd;
+        }
+        .restaurant-admin-section h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .restaurant-admin-section h3 button {
+            font-size: 14px;
+            padding: 5px 10px;
+            background-color: #dc3545; /* Red for delete */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .restaurant-admin-section h3 button:hover {
+            background-color: #c82333;
+        }
+        .menu-item-admin {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #f0f0f0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .menu-item-admin label {
+            font-weight: 500;
+            color: #555;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        .menu-item-admin input[type="text"],
+        .menu-item-admin input[type="number"] {
+            flex: 1; /* Take available space */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .menu-item-admin .item-actions {
+            display: flex;
+            gap: 5px;
+            margin-left: auto; /* Push buttons to the right */
+        }
+        .menu-item-admin button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-add-item {
+            background-color: #28a745; /* Green */
+            color: white;
+            transition: background-color 0.2s;
+        }
+        .btn-add-item:hover {
+            background-color: #218838;
+        }
+        .btn-remove-item {
+            background-color: #dc3545; /* Red */
+            color: white;
+            transition: background-color 0.2s;
+        }
+        .btn-remove-item:hover {
+            background-color: #c82333;
+        }
+        .add-restaurant-section {
+            background-color: #e6ffe6;
+            border: 1px dashed #00B14F;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .add-restaurant-section h3 {
+            font-size: 20px;
+            color: #00B14F;
+            margin-bottom: 15px;
+        }
+        .add-restaurant-section input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        .btn-primary {
+            background-color: #007bff; /* Blue */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+            margin-top: 15px;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-download {
+            background-color: #6c757d; /* Grey */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0 auto;
+            transition: background-color 0.2s;
+        }
+        .btn-download:hover {
+            background-color: #5a6268;
+        }
+
+        /* Responsive adjustments for admin page */
+        @media (max-width: 768px) {
+            .admin-container {
+                margin: 20px 10px;
+                padding: 20px;
+            }
+            .restaurant-admin-section h3 {
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 20px;
+            }
+            .restaurant-admin-section h3 button {
+                margin-top: 10px;
+            }
+            .menu-item-admin {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .menu-item-admin input {
+                width: calc(100% - 16px); /* Adjust for padding */
+            }
+            .menu-item-admin .item-actions {
+                margin-left: 0;
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Admin Panel - Update Menu</h1>
+            <p>Edit daftar restoran dan menu Anda. Setelah selesai, klik "Download Data JSON" lalu **unggah file tersebut secara manual** ke repositori GitHub Anda.</p>
+        </div>
+
+        <div id="restaurant-admin-list">
+            </div>
+
+        <div class="add-restaurant-section">
+            <h3>Tambah Restoran Baru</h3>
+            <input type="text" id="new-restaurant-name" placeholder="Nama Restoran Baru">
+            <input type="text" id="new-restaurant-description" placeholder="Deskripsi Restoran Baru">
+            <button class="btn-primary" onclick="addRestaurant()">Tambah Restoran</button>
+        </div>
+
+        <button class="btn-download" onclick="downloadJson()">Download Data JSON</button>
+    </div>
+
+    <script src="admin_script.js"></script>
+</body>
+</html>
