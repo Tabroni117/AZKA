@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrabFood Kw Super</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-logo">GrabFood</div>
+        <div class="nav-search">
+            <input type="text" placeholder="Cari restoran atau makanan...">
+        </div>
+        <div class="nav-cart" id="cart-icon">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Pilih Restoran</h2>
+            <div id="restaurant-list">
+                </div>
+        </aside>
+
+        <main class="main-content">
+            <h2 id="menu-title">Selamat Datang di GrabFood Kw Super!</h2>
+            <p id="menu-description" class="description-text">Silakan pilih restoran favorit Anda dari daftar di samping untuk melihat menu mereka.</p>
+            <div id="menu-items">
+                </div>
+        </main>
+
+        <div class="cart-summary" id="cart-summary">
+            <h3>Keranjang Anda</h3>
+            <div id="cart-items-list">
+                <p>Keranjang kosong.</p>
+            </div>
+            <div class="cart-total">
+                <strong>Total:</strong> <span id="cart-total-price">Rp 0</span>
+            </div>
+            <button class="btn-checkout" onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
