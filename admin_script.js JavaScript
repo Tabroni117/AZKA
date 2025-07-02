@@ -1,0 +1,193 @@
+let currentRestaurantsData = {}; // Global variable to hold data
+
+// Function to format Rupiah (re-used from main script, though not strictly needed here)
+function formatRupiah(number) {
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0
+    }).format(number);
+}
+
+// Function to fetch restaurants data from JSON file
+async function fetchRestaurantsDataForAdmin() {
+    try {
+        const response = await fetch('restaurants.json');
+        if (!response.ok) {
+            // If restaurants.json doesn't exist yet, start with empty data
+            if (response.status === 404) {
+                console.warn('restaurants.json not found, starting with empty data.');
+                currentRestaurantsData = {};
+                renderAdminPanel();
+                return;
+            }
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        currentRestaurantsData = await response.json();
+        console.log('Data restoran berhasil dimuat untuk admin:', currentRestaurantsData);
+        renderAdminPanel(); // Render the admin panel after data is loaded
+    } catch (error) {
+        console.error('Gagal memuat data restoran untuk admin:', error);
+        alert('Gagal memuat data restoran untuk admin. Silakan coba lagi nanti atau buat file restaurants.json kosong.');
+        currentRestaurantsData = {}; // Fallback to empty data on error
+        renderAdminPanel();
+    }
+}
+
+// Function to render the entire admin panel
+function renderAdminPanel() {
+    const restaurantAdminListDiv = document.getElementById('restaurant-admin-list');
+    restaurantAdminListDiv.innerHTML = ''; // Clear existing content
+
+    for (const restName in currentRestaurantsData) {
+        const rest = currentRestaurantsData[restName];
+        const restaurantSection = document.createElement('div');
+        restaurantSection.className = 'restaurant-admin-section';
+        restaurantSection.innerHTML = `
+            <h3>
+                ${restName} 
+                <button onclick="removeRestaurant('${restName}')">Hapus Restoran</button>
+            </h3>
+            <label>Deskripsi:</label>
+            <input type="text" id="desc-${restName.replace(/\s/g, '_')}" value="${rest.description}" onchange="updateRestaurantDescription('${restName}', this.value)">
+            <h4>Menu Items:</h4>
+            <div id="menu-items-admin-${restName.replace(/\s/g, '_')}">
+                </div>
+            <button class="btn-add-item" onclick="addMenuItem('${restName}')">Tambah Item Menu</button>
+        `;
+        restaurantAdminListDiv.appendChild(restaurantSection);
+        renderMenuItems(restName); // Render menu items for this restaurant
+    }
+}
+
+// Function to render menu items for a specific restaurant
+function renderMenuItems(restaurantName) {
+    const menuItemsAdminDiv = document.getElementById(`menu-items-admin-${restaurantName.replace(/\s/g, '_')}`);
+    menuItemsAdminDiv.innerHTML = ''; // Clear existing menu items
+
+    const menu = currentRestaurantsData[restaurantName].menu;
+    for (const itemName in menu) {
+        const item = menu[itemName];
+        const menuItemDiv = document.createElement('div');
+        menuItemDiv.className = 'menu-item-admin';
+        menuItemDiv.innerHTML = `
+            <label>Nama Item:</label>
+            <input type="text" value="${itemName}" onchange="updateMenuItemName('${restaurantName}', '${itemName}', this.value)">
+            <label>Harga:</label>
+            <input type="number" value="${item.price}" onchange="updateMenuItemPrice('${restaurantName}', '${itemName}', this.value)">
+            <label>Deskripsi Item:</label>
+            <input type="text" value="${item.description}" onchange="updateMenuItemDescription('${restaurantName}', '${itemName}', this.value)">
+            <div class="item-actions">
+                <button class="btn-remove-item" onclick="removeMenuItem('${restaurantName}', '${itemName}')">Hapus</button>
+            </div>
+        `;
+        menuItemsAdminDiv.appendChild(menuItemDiv);
+    }
+}
+
+// --- Data Modification Functions ---
+
+function updateRestaurantDescription(restName, newDesc) {
+    currentRestaurantsData[restName].description = newDesc;
+    console.log(`Deskripsi ${restName} diperbarui: ${newDesc}`);
+}
+
+function updateMenuItemName(restName, oldName, newName) {
+    if (oldName === newName) return; // No change
+    if (currentRestaurantsData[restName].menu[newName]) {
+        alert('Nama item ini sudah ada!');
+        renderAdminPanel(); // Re-render to revert input
+        return;
+    }
+    const itemData = currentRestaurantsData[restName].menu[oldName];
+    delete currentRestaurantsData[restName].menu[oldName];
+    currentRestaurantsData[restName].menu[newName] = itemData;
+    console.log(`Nama menu di ${restName} dari ${oldName} menjadi ${newName}`);
+    renderAdminPanel(); // Re-render to update IDs and display
+}
+
+function updateMenuItemPrice(restName, itemName, newPrice) {
+    currentRestaurantsData[restName].menu[itemName].price = parseFloat(newPrice);
+    console.log(`Harga ${itemName} di ${restName} diperbarui: ${newPrice}`);
+}
+
+function updateMenuItemDescription(restName, itemName, newDesc) {
+    currentRestaurantsData[restName].menu[itemName].description = newDesc;
+    console.log(`Deskripsi ${itemName} di ${restName} diperbarui: ${newDesc}`);
+}
+
+function addRestaurant() {
+    const nameInput = document.getElementById('new-restaurant-name');
+    const descInput = document.getElementById('new-restaurant-description');
+    const name = nameInput.value.trim();
+    const description = descInput.value.trim();
+
+    if (!name) {
+        alert('Nama restoran tidak boleh kosong!');
+        return;
+    }
+    if (currentRestaurantsData[name]) {
+        alert('Restoran dengan nama ini sudah ada!');
+        return;
+    }
+
+    currentRestaurantsData[name] = {
+        description: description,
+        menu: {}
+    };
+    nameInput.value = '';
+    descInput.value = '';
+    alert(`Restoran "${name}" berhasil ditambahkan!`);
+    renderAdminPanel();
+}
+
+function removeRestaurant(restName) {
+    if (confirm(`Anda yakin ingin menghapus restoran "${restName}" dan semua menunya?`)) {
+        delete currentRestaurantsData[restName];
+        alert(`Restoran "${restName}" berhasil dihapus.`);
+        renderAdminPanel();
+    }
+}
+
+function addMenuItem(restName) {
+    const menu = currentRestaurantsData[restName].menu;
+    let newItemName = `Item Baru ${Object.keys(menu).length + 1}`;
+    let counter = 1;
+    while (menu[newItemName]) { // Ensure unique name
+        newItemName = `Item Baru ${Object.keys(menu).length + 1}-${counter}`;
+        counter++;
+    }
+
+    menu[newItemName] = {
+        price: 0,
+        description: "Deskripsi item baru"
+    };
+    alert(`Item "${newItemName}" berhasil ditambahkan ke ${restName}.`);
+    renderMenuItems(restName); // Only re-render menus for this restaurant
+}
+
+function removeMenuItem(restName, itemName) {
+    if (confirm(`Anda yakin ingin menghapus item "${itemName}" dari ${restName}?`)) {
+        delete currentRestaurantsData[restName].menu[itemName];
+        alert(`Item "${itemName}" berhasil dihapus.`);
+        renderMenuItems(restName); // Only re-render menus for this restaurant
+    }
+}
+
+// Function to download the updated JSON data
+function downloadJson() {
+    const dataStr = JSON.stringify(currentRestaurantsData, null, 4); // Pretty print JSON
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'restaurants.json'; // The file name it will be downloaded as
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    alert('File "restaurants.json" telah diunduh. SILAKAN UNGGAH FILE INI SECARA MANUAL KE REPOSITORI GITHUB ANDA!');
+}
+
+// Initial fetch of data when the admin page loads
+document.addEventListener('DOMContentLoaded', fetchRestaurantsDataForAdmin);
